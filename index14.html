@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Перевірка балансу дужок</title>
+  <style>
+    body {
+      user-select: none;
+    }
+
+    script {
+      display: none;
+    }
+  </style>
+  <script>
+
+    function checkParenthesesBalance(text) {
+      const arr = [];
+
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] === '(') {
+            arr.push('(');
+        } else if (text[i] === ')') {
+          if (arr.length === 0) {
+            return false; 
+          } else {
+            arr.pop(); 
+          }
+        }
+      }
+
+      return arr.length === 0;
+    }
+    
+    window.onload = function() {
+      const text = '(Привіт, (світе))!';
+      const isBalanced = checkParenthesesBalance(text);
+
+      if (isBalanced) {
+        document.getElementById('result').innerText = 'Баланс дужок дотримується.';
+      } else {
+        document.getElementById('result').innerText = 'Баланс дужок не дотримується.';
+      }
+
+      document.getElementById('text').innerText = text;
+    };
+  </script>
+</head>
+<body>
+  <div id="result"></div>
+  <div id="text"></div>
+
+  <script>
+    document.getElementById('text').addEventListener('copy', function(e) {
+      e.preventDefault();
+      alert('Копіювання тексту заборонено!');
+    });
+  </script>
+</body>
+</html>

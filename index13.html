@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Transform String</title>
+  <script>
+    function transformString() {
+      var inputString = "Інформація: Марта email@marta.com https://marta.com 0934598158"; // Замените на ваш входной рядок
+
+      // а) усі слова у нижньому регістрі, крім першої літери першого слова
+      var words = inputString.split(" ");
+      for (var i = 1; i < words.length; i++) {
+        words[i] = words[i].toLowerCase();
+      }
+
+      // б) усі посилання у словах замінюються на "[посилання заборонено]"
+      for (var i = 0; i < words.length; i++) {
+        if (words[i].startsWith("http://") || words[i].startsWith("https://")) {
+          words[i] = "[посилання заборонено]";
+        }
+      }
+
+      // в) всі email замінюються на "[контакти заборонені]"
+      for (var i = 0; i < words.length; i++) {
+        if (words[i].includes("@")) {
+          words[i] = "[контакти заборонені]";
+        }
+      }
+
+      // г) усі слова довжини понад 3 символи, що містять лише цифри, видаляються
+      words = words.filter(function(word) {
+        return !(word.length > 3 && /^\d+$/.test(word));
+      });
+
+      var outputString = words.join(" ");
+
+      if (outputString.length > inputString.length) {
+        setInterval(function() {
+          if (confirm("Потрібна вам допомога?")) {
+          }
+        }, 5000);
+      }
+
+      var inputElement = document.getElementById("input");
+      inputElement.textContent = "Початкова стрічка: " + inputString;
+
+      var outputElement = document.getElementById("output");
+      outputElement.textContent = "Результат: " + outputString;
+      outputElement.style.display = "block";
+    }
+  </script>
+</head>
+<body>
+  <h1>Перетворення стрічки</h1>
+  <p id="input"></p>
+  <button onclick="transformString()">Перетворити</button>
+  <p id="output" style="display: none;"></p>
+  <script>
+    var inputString = "Інформація: Марта email@people.com https://people.com 0934598158";
+    var inputElement = document.getElementById("input");
+    inputElement.textContent = "Початкова стрічка: " + inputString;
+  </script>
+</body>
+</html>
+
+
